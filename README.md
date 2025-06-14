@@ -29,72 +29,72 @@ uploader-sementara/ ├── server.js            # Backend utama ├── pac
 git clone https://github.com/kamu/uploader-sementara.git
 cd uploader-sementara
 
-2. Install dependency:
+## 2. Install dependency:
 
 npm install
 
-3. Jalankan server:
+## 3. Jalankan server:
 
 node server.js
 
-4. Buka di browser:
+## 4. Buka di browser:
 
 http://localhost:3000
 
 --
 
-☁️ Deploy ke Railway
+## ☁️ Deploy ke Railway
 
-1. Push semua file ke GitHub
-
-
-2. Buka https://railway.app
+## 1. Push semua file ke GitHub
 
 
-3. Klik New Project → Deploy from GitHub Repo
+## 2. Buka https://railway.app
 
 
-4. Pilih repo ini
+## 3. Klik New Project → Deploy from GitHub Repo
 
 
-5. Tunggu hingga deploy selesai
+## 4. Pilih repo ini
 
 
-
-
----
-
-⚠️ Catatan Penting
-
-Hal	Keterangan
-
-Penyimpanan file	Hanya disimpan sementara (5 jam) di uploads/
-Batas file	Max 128MB
-Hosting gratis	Direkomendasikan: Railway, Render, Fly.io
-Tidak cocok	Untuk file penting/permanen (karena bisa hilang kapan saja)
-
-
-
----
-
-📸 Screenshot
-
-
+## 5. Tunggu hingga deploy selesai
 
 
 
 
 ---
 
-📄 Lisensi
+## ⚠️ Catatan Penting
 
-MIT License — Bebas digunakan dan dimodifikasi.
+## Hal	Keterangan
+
+## Penyimpanan file	Hanya disimpan sementara (5 jam) di uploads/
+## Batas file	Max 128MB
+## Hosting gratis	Direkomendasikan: Railway, Render, Fly.io
+## Tidak cocok	Untuk file penting/permanen (karena bisa hilang kapan saja)
+
 
 
 ---
 
-🙋‍♂️ Kontribusi / Pertanyaan
+## 📸 Screenshot
 
-Silakan buka Issues atau hubungi saya via GitHub jika ada pertanyaan, ide, atau bug.
+
+
+
+
+
+---
+
+## 📄 Lisensi
+
+## MIT License — Bebas digunakan dan dimodifikasi.
+
+
+---
+
+## 🙋‍♂️ Kontribusi / Pertanyaan
+
+## Silakan buka Issues atau hubungi saya via GitHub jika ada pertanyaan, ide, atau bug.
 
 ---
