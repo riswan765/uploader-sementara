@@ -2,7 +2,7 @@
 
 Project simpel buat upload file sementara (max 128MB), nanti bakal auto kehapus setelah 5 jam. Gak perlu database, semua disimpan lokal aja. Cocok buat sharing cepat antar device atau teman.
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template?repository=https://github.com/riswan/uploader-sementara)
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template?repository=https://github.com/riswan765/uploader-sementara)
 
 ---
 
