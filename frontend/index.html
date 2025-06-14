@@ -2,17 +2,92 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Uploader Sementara</title>
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com">
+// Render ulang dengan tombol download dan share link
+historyList.innerHTML = "";
+uploads.forEach(file => {
+  const remaining = Math.max(0, 5 * 60 * 60 * 1000 - (now - file.time));
+  const hours = Math.floor(remaining / (60 * 60 * 1000));
+  const minutes = Math.floor((remaining % (60 * 60 * 1000)) / (60 * 1000));
+  const item = document.createElement("li");
+  const fileUrl = "/uploads/" + file.filename;
+  item.innerHTML = `
+    <div class="flex flex-col sm:flex-row sm:justify-between gap-2 items-start sm:items-center bg-white/5 border border-white/10 rounded px-3 py-2">
+      <span class="truncate w-full sm:w-1/2">${file.originalname}</span>
+      <div class="flex items-center gap-2">
+        <a href="${fileUrl}" download class="text-blue-300 hover:underline text-sm">Download</a>
+        <button class="copy-btn text-white/70 text-sm border px-2 py-0.5 rounded border-white/20" data-url="${location.origin}${fileUrl}">Copy Link</button>
+        <span class="text-xs text-white/50">Expired: ${hours}j ${minutes}m</span>
+      </div>
+    </div>
+  `;
+  historyList.appendChild(item);
+});
+
+// Copy link handler
+document.addEventListener("click", function(e) {
+  if (e.target.classList.contains("copy-btn")) {
+    const link = e.target.getAttribute("data-url");
+    navigator.clipboard.writeText(link).then(() => {
+      e.target.innerText = "Copied!";
+      setTimeout(() => (e.target.innerText = "Copy Link"), 1500);
+    });
+  }
+});
+</script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js">
+// Render ulang dengan tombol download dan share link
+historyList.innerHTML = "";
+uploads.forEach(file => {
+  const remaining = Math.max(0, 5 * 60 * 60 * 1000 - (now - file.time));
+  const hours = Math.floor(remaining / (60 * 60 * 1000));
+  const minutes = Math.floor((remaining % (60 * 60 * 1000)) / (60 * 1000));
+  const item = document.createElement("li");
+  const fileUrl = "/uploads/" + file.filename;
+  item.innerHTML = `
+    <div class="flex flex-col sm:flex-row sm:justify-between gap-2 items-start sm:items-center bg-white/5 border border-white/10 rounded px-3 py-2">
+      <span class="truncate w-full sm:w-1/2">${file.originalname}</span>
+      <div class="flex items-center gap-2">
+        <a href="${fileUrl}" download class="text-blue-300 hover:underline text-sm">Download</a>
+        <button class="copy-btn text-white/70 text-sm border px-2 py-0.5 rounded border-white/20" data-url="${location.origin}${fileUrl}">Copy Link</button>
+        <span class="text-xs text-white/50">Expired: ${hours}j ${minutes}m</span>
+      </div>
+    </div>
+  `;
+  historyList.appendChild(item);
+});
+
+// Copy link handler
+document.addEventListener("click", function(e) {
+  if (e.target.classList.contains("copy-btn")) {
+    const link = e.target.getAttribute("data-url");
+    navigator.clipboard.writeText(link).then(() => {
+      e.target.innerText = "Copied!";
+      setTimeout(() => (e.target.innerText = "Copy Link"), 1500);
+    });
+  }
+});
+</script>
   <style>
     body {
-      background: #0f172a;
-      color: #cbd5e1;
-      font-family: 'Inter', sans-serif;
-      position: relative;
+      background: radial-gradient(ellipse at bottom, #0d1b2a 0%, #000 100%);
       overflow: hidden;
+    }
+    .planet {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle, #88f 0%, #44f 100%);
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(0,0,255,0.5);
+      animation: drift 60s linear infinite;
+    }
+    @keyframes drift {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-100px); }
+      100% { transform: translateY(0); }
     }
     .star {
       position: absolute;
@@ -28,50 +103,54 @@
     }
   </style>
 </head>
-<body class="p-4 sm:p-6 lg:p-8">
-   
+<body class="text-white font-sans">
+
+  <!-- Background stars & planet -->
   <div id="stars"></div>
+  <div class="planet" style="top: 100px; left: 60px;"></div>
+  <div class="planet" style="top: 200px; right: 40px;"></div>
 
-  <div class="w-full max-w-2xl px-4 sm:px-6 lg:px-8 mx-auto bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-lg z-10 relative">
-    <h1 class="text-3xl font-bold text-blue-300 text-center mb-4">Uploader Sementara</h1>
+  <!-- Main Card -->
+  <div class="flex justify-center items-center min-h-screen relative z-10">
+    <div class="w-full max-w-xl backdrop-blur-md bg-white/10 border border-white/20 rounded-xl p-6 shadow-lg">
 
-    <form id="uploadForm" class="flex gap-2 mb-6">
-      <input type="file" id="fileInput" class="w-full border border-slate-600 bg-slate-700 text-slate-100 rounded px-3 py-2" required />
-      <button type="submit" class="bg-blue-500 text-white font-semibold px-4 py-2 rounded hover:bg-blue-400 flex items-center gap-1">
-        <i data-lucide="upload"></i> Upload
-      </button>
-    </form>
+      <h1 class="text-3xl font-bold text-center mb-4">Uploader Sementara</h1>
 
-    <h2 class="text-xl font-semibold text-blue-300 mb-2">Riwayat Upload</h2>
-    <ul id="historyList" class="space-y-2 text-sm text-slate-200"></ul>
-
-    <h2 class="text-xl font-semibold text-blue-300 mt-6 mb-2">Statistik</h2>
-    <div id="statsBox" class="bg-slate-700 border border-slate-600 p-4 rounded space-y-1 text-slate-200">
-      <p id="totalFiles">Total file: ...</p>
-      <p id="totalSize">Total ukuran: ...</p>
-      <p id="lastUpload">Upload terakhir: ...</p>
-      <p id="largestFile">File terbesar: ...</p>
-    </div>
-
-    <footer class="mt-8 pt-4 border-t border-slate-700 text-slate-400 text-sm flex flex-col gap-4 text-center">
-      <p class="text-center">📤 <strong>Uploader Sementara</strong> adalah website sederhana untuk menyimpan file sementara secara otomatis dengan batas waktu 5 jam.</p>
-      <div class="flex justify-center gap-4 items-center text-slate-400">
-        <span class="flex items-center gap-3">
-          <i data-lucide="mail" class="w-5 h-5 hover:text-blue-400 cursor-pointer"></i>
-          <i data-lucide="instagram" class="w-5 h-5 hover:text-pink-400 cursor-pointer"></i>
-          <i data-lucide="github" class="w-5 h-5 hover:text-white cursor-pointer"></i>
-        </span>
+      <div class="border-2 border-dashed border-white/30 rounded-lg h-40 flex justify-center items-center mb-4 cursor-pointer hover:bg-white/5 transition">
+        <div class="text-center">
+          <i data-lucide="upload-cloud" class="w-10 h-10 mx-auto mb-2"></i>
+          <p>Drop file di sini atau klik untuk browse</p>
+          <p class="text-sm text-white/50">Max 128MB • File hilang otomatis setelah 5 jam</p>
+        </div>
       </div>
-    </footer>
+
+      <button class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded transition">Upload</button>
+
+      <div class="mt-6 text-sm text-white/80 leading-relaxed">
+        <p><strong>Uploader Sementara</strong> adalah website untuk upload file dengan mudah dan cepat tanpa login.</p>
+        <p>File yang diunggah akan otomatis hilang dalam waktu 5 jam, cocok buat kirim file sementara ke teman, testing, atau share link tanpa harus simpan selamanya.</p>
+      </div>
+
+      <!-- Riwayat Upload -->
+      <div class="mt-6">
+        <h2 class="text-xl font-semibold mb-2">Riwayat Upload</h2>
+        <ul id="historyList" class="space-y-2 text-sm text-white/80"></ul>
+<style>
+  .copy-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+</style>
+      </div>
+
+    </div>
   </div>
 
   <script>
     lucide.createIcons();
 
-    // Bintang latar belakang ye🗿
+    // Bintang bergerak
     const starsContainer = document.getElementById('stars');
-    const count = 80;
-    for (let i = 0; i < count; i++) {
+    for (let i = 0; i < 100; i++) {
       const star = document.createElement('div');
       star.className = 'star';
       star.style.top = Math.random() * 100 + 'vh';
@@ -79,6 +158,108 @@
       star.style.animationDelay = (Math.random() * 3) + 's';
       starsContainer.appendChild(star);
     }
-  </script>
+  
+// Render ulang dengan tombol download dan share link
+historyList.innerHTML = "";
+uploads.forEach(file => {
+  const remaining = Math.max(0, 5 * 60 * 60 * 1000 - (now - file.time));
+  const hours = Math.floor(remaining / (60 * 60 * 1000));
+  const minutes = Math.floor((remaining % (60 * 60 * 1000)) / (60 * 1000));
+  const item = document.createElement("li");
+  const fileUrl = "/uploads/" + file.filename;
+  item.innerHTML = `
+    <div class="flex flex-col sm:flex-row sm:justify-between gap-2 items-start sm:items-center bg-white/5 border border-white/10 rounded px-3 py-2">
+      <span class="truncate w-full sm:w-1/2">${file.originalname}</span>
+      <div class="flex items-center gap-2">
+        <a href="${fileUrl}" download class="text-blue-300 hover:underline text-sm">Download</a>
+        <button class="copy-btn text-white/70 text-sm border px-2 py-0.5 rounded border-white/20" data-url="${location.origin}${fileUrl}">Copy Link</button>
+        <span class="text-xs text-white/50">Expired: ${hours}j ${minutes}m</span>
+      </div>
+    </div>
+  `;
+  historyList.appendChild(item);
+});
+
+// Copy link handler
+document.addEventListener("click", function(e) {
+  if (e.target.classList.contains("copy-btn")) {
+    const link = e.target.getAttribute("data-url");
+    navigator.clipboard.writeText(link).then(() => {
+      e.target.innerText = "Copied!";
+      setTimeout(() => (e.target.innerText = "Copy Link"), 1500);
+    });
+  }
+});
+</script>
+
+<script>
+  // Simulasi data history
+  const uploads = JSON.parse(localStorage.getItem("uploadHistory") || "[]");
+  const historyList = document.getElementById("historyList");
+  const now = Date.now();
+
+  uploads.forEach(file => {
+    const remaining = Math.max(0, 5 * 60 * 60 * 1000 - (now - file.time));
+    const hours = Math.floor(remaining / (60 * 60 * 1000));
+    const minutes = Math.floor((remaining % (60 * 60 * 1000)) / (60 * 1000));
+    const link = document.createElement("li");
+    link.innerHTML = `
+      <div class="flex justify-between items-center bg-white/5 border border-white/10 rounded px-3 py-2">
+        <span class="truncate w-3/4">${file.originalname || file.filename}</span>
+        <span class="text-xs text-white/60">Expired dalam ${hours}j ${minutes}m</span>
+      </div>
+    `;
+    historyList.appendChild(link);
+  });
+
+// Simulasi penyimpanan upload ke localStorage setelah upload berhasil
+// Ini biasanya dipanggil setelah upload API berhasil
+
+function saveToHistory(file) {
+  const history = JSON.parse(localStorage.getItem("uploadHistory") || "[]");
+  history.unshift({
+    filename: file.filename,
+    originalname: file.originalname || file.filename,
+    time: Date.now()
+  });
+  localStorage.setItem("uploadHistory", JSON.stringify(history));
+}
+
+// Contoh pemakaian (panggil ini setelah upload berhasil):
+// saveToHistory({ filename: "12345-foto.png", originalname: "foto.png" });
+
+
+// Render ulang dengan tombol download dan share link
+historyList.innerHTML = "";
+uploads.forEach(file => {
+  const remaining = Math.max(0, 5 * 60 * 60 * 1000 - (now - file.time));
+  const hours = Math.floor(remaining / (60 * 60 * 1000));
+  const minutes = Math.floor((remaining % (60 * 60 * 1000)) / (60 * 1000));
+  const item = document.createElement("li");
+  const fileUrl = "/uploads/" + file.filename;
+  item.innerHTML = `
+    <div class="flex flex-col sm:flex-row sm:justify-between gap-2 items-start sm:items-center bg-white/5 border border-white/10 rounded px-3 py-2">
+      <span class="truncate w-full sm:w-1/2">${file.originalname}</span>
+      <div class="flex items-center gap-2">
+        <a href="${fileUrl}" download class="text-blue-300 hover:underline text-sm">Download</a>
+        <button class="copy-btn text-white/70 text-sm border px-2 py-0.5 rounded border-white/20" data-url="${location.origin}${fileUrl}">Copy Link</button>
+        <span class="text-xs text-white/50">Expired: ${hours}j ${minutes}m</span>
+      </div>
+    </div>
+  `;
+  historyList.appendChild(item);
+});
+
+// Copy link handler
+document.addEventListener("click", function(e) {
+  if (e.target.classList.contains("copy-btn")) {
+    const link = e.target.getAttribute("data-url");
+    navigator.clipboard.writeText(link).then(() => {
+      e.target.innerText = "Copied!";
+      setTimeout(() => (e.target.innerText = "Copy Link"), 1500);
+    });
+  }
+});
+</script>
 </body>
 </html>
