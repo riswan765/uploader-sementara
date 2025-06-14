@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Uploader Sementara</title>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="app.js" defer></script>
+</head>
+<body class="bg-gray-100 text-gray-900 p-4">
+
+  <div class="max-w-xl mx-auto">
+    <h1 class="text-2xl font-bold mb-4 text-center">Uploader Sementara</h1>
+
+    <!-- Drag & Drop Zone -->
+    <div id="dropZone" class="border-2 border-dashed border-gray-300 p-4 text-center rounded mb-4 cursor-pointer">
+      <p class="text-sm text-gray-500">Tarik file ke sini atau klik untuk memilih</p>
+    </div>
+
+    <!-- Form Upload -->
+    <form id="uploadForm" class="bg-white p-4 rounded shadow mb-6 flex items-center gap-2">
+      <input type="file" id="fileInput" class="flex-1 border rounded px-2 py-1" required />
+      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 flex items-center gap-1">
+        <i data-lucide="upload"></i> Upload
+      </button>
+    </form>
+
+    <!-- Progress Bar -->
+    <progress id="progressBar" class="w-full mb-6 hidden h-2" value="0" max="100"></progress>
+
+    <!-- Riwayat Upload -->
+    <h2 class="text-lg font-semibold mb-2">Riwayat Upload</h2>
+    <ul id="historyList" class="space-y-2 mb-6"></ul>
+
+    <!-- Statistik -->
+    <h2 class="text-lg font-semibold mb-2">Statistik</h2>
+    <div id="statsBox" class="bg-white p-3 rounded shadow text-sm space-y-1">
+      <p id="totalFiles">Total file: ...</p>
+      <p id="totalSize">Total ukuran: ...</p>
+      <p id="lastUpload">Upload terakhir: ...</p>
+      <p id="largestFile">File terbesar: ...</p>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
