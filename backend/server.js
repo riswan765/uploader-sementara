@@ -2,57 +2,61 @@ const express = require('express');
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
-const cors = require('cors');
-const cleaner = require('./expired-cleaner'); // pastikan file ini ada
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
+// Lokasi penyimpanan upload dalam folder backend/uploads
 const UPLOAD_DIR = path.join(__dirname, 'uploads');
+
+// Buat folder uploads jika belum ada
 if (!fs.existsSync(UPLOAD_DIR)) fs.mkdirSync(UPLOAD_DIR);
 
-// Konfigurasi penyimpanan file
+// Konfigurasi multer untuk upload file
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, UPLOAD_DIR);
-  },
+  destination: (req, file, cb) => cb(null, UPLOAD_DIR),
   filename: (req, file, cb) => {
-    const uniqueName = `${Date.now()}-${file.originalname}`;
-    cb(null, uniqueName);
+    const timestamp = Date.now();
+    const name = `${timestamp}-${file.originalname}`;
+    cb(null, name);
   }
 });
 
-// Setup multer
 const upload = multer({
   storage,
-  limits: { fileSize: 128 * 1024 * 1024 } // Max 128MB
+  limits: { fileSize: 128 * 1024 * 1024 } // 128MB
 });
 
-// Middleware
-app.use(cors());
-app.use(express.static(UPLOAD_DIR)); // akses file via URL langsung
+// Berikan akses publik ke folder uploads jika perlu
+app.use('/uploads', express.static(UPLOAD_DIR));
 
-// Endpoint upload
+// Sajikan frontend statis dari ../frontend
+app.use(express.static(path.join(__dirname, '..', 'frontend')));
+
+// Endpoint upload file
 app.post('/upload', upload.single('file'), (req, res) => {
-  const file = req.file;
-  if (!file) return res.status(400).json({ error: 'No file uploaded.' });
-
-  res.json({
-    filename: file.filename,
-    originalname: file.originalname,
-    size: file.size,
-    url: `${req.protocol}://${req.get('host')}/${file.filename}`,
-    uploadedAt: Date.now()
-  });
+  if (!req.file) return res.status(400).json({ success: false, message: 'No file uploaded' });
+  res.json({ success: true, file: req.file.filename });
 });
 
-// Auto-clean file expired setiap 10 menit
-setInterval(() => {
-  console.log('[Cleaner] Mengecek file expired...');
-  cleaner.cleanExpiredFiles();
-}, 10 * 60 * 1000); // 10 menit
+// Endpoint untuk mendapatkan file yang tidak expired
+app.get('/files', (req, res) => {
+  const now = Date.now();
+  const files = fs.readdirSync(UPLOAD_DIR).filter(file => {
+    const timestamp = parseInt(file.split('-')[0]);
+    const isExpired = now - timestamp > 5 * 60 * 60 * 1000;
+    if (isExpired) fs.unlinkSync(path.join(UPLOAD_DIR, file));
+    return !isExpired;
+  });
+  res.json(files);
+});
+
+// Fallback untuk SPA (Single Page App)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html'));
+});
 
 // Jalankan server
 app.listen(PORT, () => {
-  console.log(`🚀 Server berjalan di http://localhost:${PORT}`);
+  console.log(`🚀 Server aktif di http://localhost:${PORT}`);
 });
