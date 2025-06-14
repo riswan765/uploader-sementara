@@ -1,31 +1,30 @@
 const fs = require('fs');
 const path = require('path');
 
-const UPLOAD_DIR = path.join(__dirname, 'uploads');
-const EXPIRY_MS = 5 * 60 * 60 * 1000; // 5 jam
-
-function cleanExpiredFiles() {
-  fs.readdir(UPLOAD_DIR, (err, files) => {
-    if (err) return console.error('Gagal membaca folder upload:', err);
-
-    const now = Date.now();
-
-    files.forEach(file => {
-      const filePath = path.join(UPLOAD_DIR, file);
-      fs.stat(filePath, (err, stats) => {
-        if (err) return console.error('Gagal membaca file:', err);
-
-        const age = now - stats.ctimeMs;
-        if (age > EXPIRY_MS) {
-          fs.unlink(filePath, err => {
-            if (err) console.error('Gagal hapus file:', file);
-            else console.log('File expired dihapus:', file);
-          });
-        }
-      });
-    });
+function cleanExpiredFiles(uploadDir, maxAgeMs = 5 * 60 * 60 * 1000) {
+  const now = Date.now();
+  const files = fs.readdirSync(uploadDir);
+  
+  files.forEach(file => {
+    const timestamp = parseInt(file.split('-')[0]);
+    if (!isNaN(timestamp)) {
+      const expired = now - timestamp > maxAgeMs;
+      if (expired) {
+        const filePath = path.join(uploadDir, file);
+        fs.unlink(filePath, err => {
+          if (err) console.error(`❌ Gagal hapus file expired: ${file}`, err);
+          else console.log(`🗑 File expired terhapus: ${file}`);
+        });
+      }
+    }
   });
 }
 
-// Jalankan pembersihan langsung saat file ini dijalankan
-cleanExpiredFiles();
+function startCleaner(uploadDir, intervalMs = 10 * 60 * 1000) {
+  setInterval(() => {
+    cleanExpiredFiles(uploadDir);
+  }, intervalMs);
+  console.log(`🧹 Pembersih otomatis aktif setiap ${intervalMs / 60000} menit`);
+}
+
+module.exports = { cleanExpiredFiles, startCleaner };
