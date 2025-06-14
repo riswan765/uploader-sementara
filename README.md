@@ -72,3 +72,13 @@ Lalu buka di browser: [http://localhost:3000](http://localhost:3000)
 MIT License — Bebas digunakan dan dimodifikasi.
 
 ---
+
+---
+
+**Dibuat oleh: Riswan**
+
+📬 **Hubungi Saya:**
+
+- Instagram: [@riswanfzy](https://instagram.com/riswanfzy)
+- Email: riswanfauji04@gmail.com
+- 
