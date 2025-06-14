@@ -1,84 +1,77 @@
-# 📁 Uploader Sementara ![MIT License](https://img.shields.io/badge/license-MIT-green) ![Node.js](https://img.shields.io/badge/Node.js-18+-brightgreen) ![Railway](https://img.shields.io/badge/deploy-Railway-blue)
+# 📁 Uploader Sementara
 
-Uploader file sederhana berbasis Node.js + Express untuk menyimpan file secara **sementara** (otomatis terhapus sendiri sesudah 5 jam). Cocok untuk berbagi file cepat dan ringan.
+Project simpel buat upload file sementara (max 128MB), nanti bakal auto kehapus setelah 5 jam. Gak perlu database, semua disimpan lokal aja. Cocok buat sharing cepat antar device atau teman.
 
-![Preview](https://raw.githubusercontent.com/openai/placeholder/main/preview.png)
-
----
-
-## 🚀 Fitur
-
-- ✅ Upload file sampai **128MB**
-- ✅ Auto hapus file sesudah **5 jam**
-- ✅ Riwayat upload disimpan di **localStorage (klien)**
-- ✅ Statistik: total file, ukuran, upload terakhir, file terbesar
-- ✅ Antarmuka bersih (Tailwind CSS + Lucide Icons)
-- ✅ Backend: Express + Multer + node-fetch
+![Preview](preview.png)
 
 ---
 
-## 📁 Struktur Proyek
+## ✨ Fitur
 
-```
-uploader-sementara/
-├── server.js
-├── package.json
-├── .gitignore
-├── README.md
-├── frontend/
-│   ├── index.html
-│   └── app.js
-├── uploads/
-```
+- ✅ Upload file sampe 128MB
+- ⏱ File auto expired 5 jam
+- 💾 Riwayat disimpan di browser (localStorage)
+- 📊 Statistik upload: total file, total ukuran, terakhir upload, file terbesar
+- 🎨 UI simpel pakai Tailwind CSS
+- 🔧 Backend pakai Node.js + Express + Multer
 
 ---
 
-## ⚙️ Cara Jalankan (Local)
+## 🚀 Cara Pakai
 
+1. Clone repo ini
 ```bash
-git clone https://github.com/kamu/uploader-sementara.git
+git clone https://github.com/riswan/uploader-sementara.git
+```
+
+2. Masuk ke folder project dan install dependencies
+```bash
 cd uploader-sementara
 npm install
+```
+
+3. Jalanin server
+```bash
 node server.js
 ```
 
-Terus buka di browser: [http://localhost:3000](http://localhost:3000)
+4. Akses via browser:
+```
+http://localhost:3000
+```
 
 ---
 
-## ☁️ Deploy ke Railway
+## 🗂 Struktur Folder
 
-1. Push semua file ke GitHub
-2. Buka [https://railway.app](https://railway.app)
-3. Klik **New Project** → **Deploy from GitHub Repo**
-4. Pilih repo ini
-5. Tunggu sampe deploy selesai
-
----
-
-## ⚠️ Catatan Penting
-
-| Hal               | Keterangan                                                  |
-|------------------|-------------------------------------------------------------|
-| Penyimpanan file | Hanya disimpen **sementara (5 jam)** di `uploads/`         |
-| Batas file       | Max 128MB                                                   |
-| Hosting gratis   | Gua rekomendasikan: Railway, Render, Fly.io                   |
-| Tidak cocok      | Untuk file penting/permanen (karena bisa hilang kapan aja) |
+```
+.
+├── frontend/
+│   ├── index.html
+│   ├── app.js
+├── uploads/
+├── server.js
+└── package.json
+```
 
 ---
 
-## 📄 Lisensi
+## ⏱ Sistem Expired
 
-MIT License — Bebas digunain dan dimodif.
-
----
+Setiap file yang diupload bakal auto kehapus setelah 5 jam. Dicek pakai script di backend yang jalan tiap request (atau bisa pakai cron job di hosting).
 
 ---
 
-**Dibuat oleh: Riswan**
+## 📦 Bisa Di-deploy ke
 
-📬 **Hubungi Gua:**
+- Railway ✅
+- Render ✅
+- Fly.io ✅
 
-- Instagram: [@riswanfzy](https://instagram.com/riswanfzy)
-- Email: riswanfauji04@gmail.com
-- 
+---
+
+## 🙋 Tentang
+
+Dibuat sama **Riswan**  
+📸 IG: [@riswan.dev](https://instagram.com/riswan.dev)  
+📧 Email: riswan@example.com
