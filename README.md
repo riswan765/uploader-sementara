@@ -1,6 +1,6 @@
 # 📁 Uploader Sementara ![MIT License](https://img.shields.io/badge/license-MIT-green) ![Node.js](https://img.shields.io/badge/Node.js-18+-brightgreen) ![Railway](https://img.shields.io/badge/deploy-Railway-blue)
 
-Uploader file sederhana berbasis Node.js + Express untuk menyimpan file secara **sementara** (otomatis terhapus setelah 5 jam). Cocok untuk berbagi file cepat dan ringan.
+Uploader file sederhana berbasis Node.js + Express untuk menyimpan file secara **sementara** (otomatis terhapus sendiri sesudah 5 jam). Cocok untuk berbagi file cepat dan ringan.
 
 ![Preview](https://raw.githubusercontent.com/openai/placeholder/main/preview.png)
 
@@ -8,8 +8,8 @@ Uploader file sederhana berbasis Node.js + Express untuk menyimpan file secara *
 
 ## 🚀 Fitur
 
-- ✅ Upload file hingga **128MB**
-- ✅ Auto hapus file setelah **5 jam**
+- ✅ Upload file sampai **128MB**
+- ✅ Auto hapus file sesudah **5 jam**
 - ✅ Riwayat upload disimpan di **localStorage (klien)**
 - ✅ Statistik: total file, ukuran, upload terakhir, file terbesar
 - ✅ Antarmuka bersih (Tailwind CSS + Lucide Icons)
@@ -42,7 +42,7 @@ npm install
 node server.js
 ```
 
-Lalu buka di browser: [http://localhost:3000](http://localhost:3000)
+Terus buka di browser: [http://localhost:3000](http://localhost:3000)
 
 ---
 
@@ -52,7 +52,7 @@ Lalu buka di browser: [http://localhost:3000](http://localhost:3000)
 2. Buka [https://railway.app](https://railway.app)
 3. Klik **New Project** → **Deploy from GitHub Repo**
 4. Pilih repo ini
-5. Tunggu hingga deploy selesai
+5. Tunggu sampe deploy selesai
 
 ---
 
@@ -60,16 +60,16 @@ Lalu buka di browser: [http://localhost:3000](http://localhost:3000)
 
 | Hal               | Keterangan                                                  |
 |------------------|-------------------------------------------------------------|
-| Penyimpanan file | Hanya disimpan **sementara (5 jam)** di `uploads/`         |
+| Penyimpanan file | Hanya disimpen **sementara (5 jam)** di `uploads/`         |
 | Batas file       | Max 128MB                                                   |
-| Hosting gratis   | Direkomendasikan: Railway, Render, Fly.io                   |
-| Tidak cocok      | Untuk file penting/permanen (karena bisa hilang kapan saja) |
+| Hosting gratis   | Gua rekomendasikan: Railway, Render, Fly.io                   |
+| Tidak cocok      | Untuk file penting/permanen (karena bisa hilang kapan aja) |
 
 ---
 
 ## 📄 Lisensi
 
-MIT License — Bebas digunakan dan dimodifikasi.
+MIT License — Bebas digunain dan dimodif.
 
 ---
 
@@ -77,7 +77,7 @@ MIT License — Bebas digunakan dan dimodifikasi.
 
 **Dibuat oleh: Riswan**
 
-📬 **Hubungi Saya:**
+📬 **Hubungi Gua:**
 
 - Instagram: [@riswanfzy](https://instagram.com/riswanfzy)
 - Email: riswanfauji04@gmail.com
