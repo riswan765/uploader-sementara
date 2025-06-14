@@ -2,49 +2,83 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>Uploader Sementara</title>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="app.js" defer></script>
+  <style>
+    body {
+      background: #0f172a;
+      color: #cbd5e1;
+      font-family: 'Inter', sans-serif;
+      position: relative;
+      overflow: hidden;
+    }
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 3s infinite ease-in-out;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+  </style>
 </head>
-<body class="bg-gray-100 text-gray-900 p-4">
+<body class="p-4 sm:p-6 lg:p-8">
+   
+  <div id="stars"></div>
 
-  <div class="max-w-xl mx-auto">
-    <h1 class="text-2xl font-bold mb-4 text-center">Uploader Sementara</h1>
+  <div class="w-full max-w-2xl px-4 sm:px-6 lg:px-8 mx-auto bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-lg z-10 relative">
+    <h1 class="text-3xl font-bold text-blue-300 text-center mb-4">Uploader Sementara</h1>
 
-    <!-- Drag & Drop Zone Nya Mas☺️ -->
-    <div id="dropZone" class="border-2 border-dashed border-gray-300 p-4 text-center rounded mb-4 cursor-pointer">
-      <p class="text-sm text-gray-500">Tarik file ke sini atau klik untuk memilih</p>
-    </div>
-
-    <!-- Form Upload Nya Mas☺️-->
-    <form id="uploadForm" class="bg-white p-4 rounded shadow mb-6 flex items-center gap-2">
-      <input type="file" id="fileInput" class="flex-1 border rounded px-2 py-1" required />
-      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 flex items-center gap-1">
+    <form id="uploadForm" class="flex gap-2 mb-6">
+      <input type="file" id="fileInput" class="w-full border border-slate-600 bg-slate-700 text-slate-100 rounded px-3 py-2" required />
+      <button type="submit" class="bg-blue-500 text-white font-semibold px-4 py-2 rounded hover:bg-blue-400 flex items-center gap-1">
         <i data-lucide="upload"></i> Upload
       </button>
     </form>
 
-    <!-- Progress Bar Nya Mas☺️-->
-    <progress id="progressBar" class="w-full mb-6 hidden h-2" value="0" max="100"></progress>
+    <h2 class="text-xl font-semibold text-blue-300 mb-2">Riwayat Upload</h2>
+    <ul id="historyList" class="space-y-2 text-sm text-slate-200"></ul>
 
-    <!-- Riwayat Upload Nya Mas☺️-->
-    <h2 class="text-lg font-semibold mb-2">Riwayat Upload</h2>
-    <ul id="historyList" class="space-y-2 mb-6"></ul>
-
-    <!-- Statistik Nya Mas☺️-->
-    <h2 class="text-lg font-semibold mb-2">Statistik</h2>
-    <div id="statsBox" class="bg-white p-3 rounded shadow text-sm space-y-1">
+    <h2 class="text-xl font-semibold text-blue-300 mt-6 mb-2">Statistik</h2>
+    <div id="statsBox" class="bg-slate-700 border border-slate-600 p-4 rounded space-y-1 text-slate-200">
       <p id="totalFiles">Total file: ...</p>
       <p id="totalSize">Total ukuran: ...</p>
       <p id="lastUpload">Upload terakhir: ...</p>
       <p id="largestFile">File terbesar: ...</p>
     </div>
+
+    <footer class="mt-8 pt-4 border-t border-slate-700 text-slate-400 text-sm flex flex-col gap-4 text-center">
+      <p class="text-center">📤 <strong>Uploader Sementara</strong> adalah website sederhana untuk menyimpan file sementara secara otomatis dengan batas waktu 5 jam.</p>
+      <div class="flex justify-center gap-4 items-center text-slate-400">
+        <span class="flex items-center gap-3">
+          <i data-lucide="mail" class="w-5 h-5 hover:text-blue-400 cursor-pointer"></i>
+          <i data-lucide="instagram" class="w-5 h-5 hover:text-pink-400 cursor-pointer"></i>
+          <i data-lucide="github" class="w-5 h-5 hover:text-white cursor-pointer"></i>
+        </span>
+      </div>
+    </footer>
   </div>
 
   <script>
     lucide.createIcons();
+
+    // Bintang latar belakang ye🗿
+    const starsContainer = document.getElementById('stars');
+    const count = 80;
+    for (let i = 0; i < count; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.top = Math.random() * 100 + 'vh';
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.animationDelay = (Math.random() * 3) + 's';
+      starsContainer.appendChild(star);
+    }
   </script>
 </body>
 </html>
