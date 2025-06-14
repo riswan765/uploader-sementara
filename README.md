@@ -73,5 +73,5 @@ Setiap file yang diupload bakal auto kehapus setelah 5 jam. Dicek pakai script d
 ## 🙋 Tentang
 
 Dibuat sama **Riswan**  
-📸 IG: [@riswan.dev](https://instagram.com/riswan.dev)  
-📧 Email: riswan@example.com
+📸 IG: [@riswanfzy](https://instagram.com/riswanfzy)  
+📧 Email: riswanfauji04@gmail.com
